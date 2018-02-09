@@ -1,0 +1,76 @@
+---
+title: "Demo"
+output: 
+  flexdashboard::flex_dashboard:
+  orientation: rows
+  socail: menu
+---
+```{r include = FALSE}
+require(dplyr)
+require(tidyr)
+require(lubridate)
+require(markdown)
+require(dygraphs)
+require(xts)
+require(zoo)
+require(RcppRoll)
+require(quantmod)
+
+source("~/R_documents/r_script.R")
+setwd("~/R_documents")
+
+data = read.csv('sample_data.csv')
+data$DATE = as.Date(data$DATE, '%m/%d/%Y')
+
+```
+
+Demo
+================================================================================
+
+row
+--------------------------------------------------------------------------------
+###Ford
+```{r echo=FALSE}
+ford = stock_roller(df = data, stock = F, rolling = 14)
+dygraph(ford, main = 'Ford Stock average')%>%
+  dyAxis('y', label = 'Close Price($)')%>%
+  dyAxis('x', label = 'Date')%>%
+  dyOptions(strokeWidth = 3, maxNumberWidth =20, colors = c('lightgray', 'gray', 'red'))%>%
+  dyLegend(width = 400, show = 'always', hideOnMouseOut = FALSE)
+```
+
+
+###TESLA
+```{r echo=FALSE}
+tesla = stock_roller(df = data, stock = TSLA, rolling = 14)
+dygraph(tesla, main = 'Tesla Stock average')%>%
+  dyAxis('y', label = 'Close Price($)')%>%
+  dyAxis('x', label = 'Date')%>%
+  dyOptions(strokeWidth = 3, maxNumberWidth =20, colors = c('lightgray', 'gray', 'red'))%>%
+  dyLegend(width = 400, show = 'always', hideOnMouseOut = FALSE)
+```
+
+
+row
+------------------------------------------------------------------------------
+
+###GE
+```{r echo=FALSE}
+ge = stock_roller(df = data, stock = GE, rolling = 14)
+dygraph(ge, main = 'GE Stock average')%>%
+  dyAxis('y', label = 'Close Price($)')%>%
+  dyAxis('x', label = 'Date')%>%
+  dyOptions(strokeWidth = 3, maxNumberWidth =20, colors = c('lightgray', 'gray', 'red'))%>%
+  dyLegend(width = 400, show = 'always', hideOnMouseOut = FALSE)
+```
+
+
+###TSYS
+```{r echo=FALSE}
+tsys = stock_roller(df = data, stock = TSS, rolling = 14)
+dygraph(tsys, main = 'TSYS Stock average')%>%
+  dyAxis('y', label = 'Close Price($)')%>%
+  dyAxis('x', label = 'Date')%>%
+  dyOptions(strokeWidth = 3, maxNumberWidth =20, colors = c('lightgray', 'gray', 'red'))%>%
+  dyLegend(width = 400, show = 'always', hideOnMouseOut = FALSE)
+```
